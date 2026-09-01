@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
 function ProductDetails() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { addToCart } = useCart()
 
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    setLoading(true)
-    setError(null)
+    let cancelled = false
 
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => {
@@ -19,13 +20,20 @@ function ProductDetails() {
         return res.json()
       })
       .then((data) => {
-        setProduct(data)
-        setLoading(false)
+        if (!cancelled) {
+          setProduct(data)
+          setError(null)
+          setLoading(false)
+        }
       })
       .catch((err) => {
-        setError(err.message)
-        setLoading(false)
+        if (!cancelled) {
+          setError(err.message)
+          setLoading(false)
+        }
       })
+
+    return () => { cancelled = true }
   }, [id])
 
   if (loading) {
@@ -64,6 +72,13 @@ function ProductDetails() {
           <p style={styles.price}>${product.price}</p>
 
           <p style={styles.description}>{product.description}</p>
+
+          <button
+            style={styles.addToCartButton}
+            onClick={() => addToCart(product)}
+          >
+            Add to Cart
+          </button>
 
           <table style={styles.table}>
             <tbody>
@@ -176,6 +191,17 @@ const styles = {
   center: {
     textAlign: 'center',
     padding: '60px',
+  },
+  addToCartButton: {
+    backgroundColor: '#3b82d4',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    padding: '10px 24px',
+    cursor: 'pointer',
+    fontSize: '15px',
+    fontWeight: '600',
+    marginBottom: '20px',
   },
 }
 

@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
 function ProductCard({ product }) {
   const navigate = useNavigate()
+  const { addToCart } = useCart()
 
   return (
     <div style={styles.card}>
@@ -18,6 +20,12 @@ function ProductCard({ product }) {
           onClick={() => navigate(`/product/${product.id}`)}
         >
           View Details
+        </button>
+        <button
+          style={styles.cartButton}
+          onClick={() => addToCart(product)}
+        >
+          Add to Cart
         </button>
       </div>
     </div>
@@ -60,6 +68,15 @@ const styles = {
     marginTop: 'auto',
     padding: '8px 12px',
     backgroundColor: '#1f2328',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '14px',
+  },
+  cartButton: {
+    padding: '8px 12px',
+    backgroundColor: '#3b82d4',
     color: '#ffffff',
     border: 'none',
     borderRadius: '6px',
