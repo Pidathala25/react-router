@@ -1,111 +1,202 @@
+/* ─── Design tokens – light mode (default) ─── */
 :root {
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
+  --bg: #ffffff;
+  --surface: #f7f8fa;
+  --border: #e5e7eb;
   --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --accent: #3b82d4;
+  --accent-hover: #2563b0;
+  --accent-bg: rgba(59, 130, 212, 0.1);
+  --accent-border: rgba(59, 130, 212, 0.4);
+  --header-bg: #1f2328;
+  --header-text: #ffffff;
+  --footer-bg: #1f2328;
+  --footer-text: #9ca3af;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --muted: #57606a;
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --error: #dc2626;
+  --error-bg: #fee2e2;
+  --shadow: rgba(0,0,0,0.08) 0 2px 8px;
+  --shadow-lg: rgba(0,0,0,0.12) 0 8px 24px;
+  --bg-secondary: #f7f8fa;
+  --surface-alt: #f0f2f5;
+  --text-muted: #57606a;
+  --accent-light: #eff6ff;
+  --hero-bg: linear-gradient(135deg, #1e3a5f 0%, #3b82d4 60%, #7c5cd8 100%);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  font: 16px/1.6 var(--sans);
+  letter-spacing: 0.15px;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* ─── Dark mode via data-theme attribute (manual toggle) ─── */
+[data-theme="dark"] {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #60a5fa;
+  --accent-hover: #93c5fd;
+  --accent-bg: rgba(96, 165, 250, 0.15);
+  --accent-border: rgba(96, 165, 250, 0.4);
+  --header-bg: #111318;
+  --header-text: #f3f4f6;
+  --footer-bg: #111318;
+  --footer-text: #9ca3af;
+  --card-bg: #1a1d27;
+  --input-bg: #1a1d27;
+  --input-border: #374151;
+  --muted: #9ca3af;
+  --success: #4ade80;
+  --success-bg: #14532d;
+  --error: #f87171;
+  --error-bg: #7f1d1d;
+  --shadow: rgba(0,0,0,0.4) 0 2px 8px;
+  --shadow-lg: rgba(0,0,0,0.5) 0 8px 24px;
+  --bg-secondary: #161b22;
+  --surface-alt: #30363d;
+  --text-muted: #8b949e;
+  --accent-light: #1d2f4f;
+  --hero-bg: linear-gradient(135deg, #0d1117 0%, #1e3a5f 60%, #2d1f5e 100%);
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* ─── Reset ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
 }
 
-h1,
-h2 {
+h1, h2, h3, h4 {
   font-family: var(--heading);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+h1 { font-size: 32px; }
+h2 { font-size: 24px; }
+h3 { font-size: 18px; }
+
+p { margin: 0; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── Shared form / card utilities ─── */
+.se-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
 }
 
-code {
+.se-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text-h);
+  font-size: 14px;
+  font-family: var(--sans);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.se-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+.se-input.error {
+  border-color: var(--error);
+}
+
+.se-btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 22px;
   font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  font-family: var(--sans);
+}
+.se-btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.se-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.se-btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: 7px;
+  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: var(--sans);
+}
+.se-btn-secondary:hover {
+  background: var(--accent-bg);
+}
+
+.se-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin-bottom: 5px;
+}
+
+.se-error-msg {
+  color: var(--error);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.se-success-msg {
+  color: var(--success);
+  font-size: 13px;
 }

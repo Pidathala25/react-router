@@ -1,88 +1,74 @@
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import './ProductCard.css'
 
 function ProductCard({ product }) {
   const navigate = useNavigate()
   const { addToCart } = useCart()
 
+  const discountPrice = product.discountPercentage
+    ? (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
+    : null
+
   return (
-    <div style={styles.card}>
-      <img
-        src={product.thumbnail}
-        alt={product.title}
-        style={styles.image}
-      />
-      <div style={styles.body}>
-        <h3 style={styles.title}>{product.title}</h3>
-        <p style={styles.price}>${product.price}</p>
-        <button
-          style={styles.button}
-          onClick={() => navigate(`/product/${product.id}`)}
-        >
-          View Details
-        </button>
-        <button
-          style={styles.cartButton}
-          onClick={() => addToCart(product)}
-        >
-          Add to Cart
-        </button>
+    <div className="pdp-product-card">
+      {product.discountPercentage > 0 && (
+        <span className="pdp-product-badge">
+          -{Math.round(product.discountPercentage)}%
+        </span>
+      )}
+
+      <div className="pdp-product-img-wrap">
+        <img
+          src={product.thumbnail}
+          alt={product.title}
+          className="pdp-product-img"
+          loading="lazy"
+        />
+      </div>
+
+      <div className="pdp-product-info">
+        <p className="pdp-product-category">{product.category}</p>
+        <h3 className="pdp-product-title">{product.title}</h3>
+
+        {product.rating && (
+          <div className="pdp-product-rating">
+            {'★'.repeat(Math.round(product.rating))}
+            {'☆'.repeat(5 - Math.round(product.rating))}
+            <span className="pdp-rating-value">({product.rating.toFixed(1)})</span>
+          </div>
+        )}
+
+        <div className="pdp-product-prices">
+          {discountPrice ? (
+            <>
+              <span className="pdp-price-now">${discountPrice}</span>
+              <span className="pdp-price-was">${product.price}</span>
+            </>
+          ) : (
+            <span className="pdp-price-now">${product.price}</span>
+          )}
+        </div>
+
+        <div className="pdp-product-actions">
+          <button
+            className="se-btn-secondary"
+            style={{ flex: 1, padding: '7px 10px', fontSize: '13px' }}
+            onClick={() => navigate(`/product/${product.id}`)}
+          >
+            View Details
+          </button>
+          <button
+            className="se-btn-primary"
+            style={{ flex: 1, padding: '7px 10px', fontSize: '13px' }}
+            onClick={() => addToCart(product)}
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
   )
-}
-
-const styles = {
-  card: {
-    border: '1px solid #e5e7eb',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    backgroundColor: '#ffffff',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  image: {
-    width: '100%',
-    height: '180px',
-    objectFit: 'cover',
-  },
-  body: {
-    padding: '12px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-    flexGrow: 1,
-  },
-  title: {
-    margin: 0,
-    fontSize: '15px',
-    color: '#1f2328',
-  },
-  price: {
-    margin: 0,
-    fontSize: '16px',
-    fontWeight: 'bold',
-    color: '#3b82d4',
-  },
-  button: {
-    marginTop: 'auto',
-    padding: '8px 12px',
-    backgroundColor: '#1f2328',
-    color: '#ffffff',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '14px',
-  },
-  cartButton: {
-    padding: '8px 12px',
-    backgroundColor: '#3b82d4',
-    color: '#ffffff',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '14px',
-  },
 }
 
 export default ProductCard
