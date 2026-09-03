@@ -5,12 +5,11 @@ import './Home.css'
 
 /* ─── Static data ────────────────────────────────────────────── */
 const CATEGORIES = [
-  { name: 'Electronics',  emoji: '📱', bg: '#dbeafe', dark: '#1d3557' },
-  { name: 'Beauty',       emoji: '💄', bg: '#fce7f3', dark: '#3b1a2e' },
-  { name: 'Furniture',    emoji: '🛋️', bg: '#d1fae5', dark: '#14352a' },
-  { name: 'Groceries',    emoji: '🛒', bg: '#fef3c7', dark: '#3b2c0a' },
-  { name: 'Fragrances',   emoji: '🌸', bg: '#ede9fe', dark: '#2e1a47' },
-  { name: 'Mens Shirts',  emoji: '👔', bg: '#fee2e2', dark: '#3b1414' },
+  { slug: 'smartphones', label: 'Smartphones',  emoji: '📱', bg: '#dbeafe', dark: '#1d3557' },
+  { slug: 'beauty',      label: 'Beauty',        emoji: '💄', bg: '#fce7f3', dark: '#3b1a2e' },
+  { slug: 'furniture',   label: 'Furniture',     emoji: '🛋️', bg: '#d1fae5', dark: '#14352a' },
+  { slug: 'groceries',   label: 'Groceries',     emoji: '🛒', bg: '#fef3c7', dark: '#3b2c0a' },
+  { slug: 'mens-shirts', label: "Men's Shirts",  emoji: '👔', bg: '#fee2e2', dark: '#3b1414' },
 ]
 
 const OFFERS = [
@@ -195,13 +194,13 @@ function Home() {
           <div className="home-categories-grid">
             {CATEGORIES.map((cat) => (
               <button
-                key={cat.name}
+                key={cat.slug}
                 className="home-cat-card"
-                onClick={() => navigate('/products')}
+                onClick={() => navigate(`/products?category=${cat.slug}`)}
                 style={{ '--cat-bg': cat.bg, '--cat-dark': cat.dark }}
               >
                 <span className="home-cat-emoji">{cat.emoji}</span>
-                <span className="home-cat-name">{cat.name}</span>
+                <span className="home-cat-name">{cat.label}</span>
                 <span className="home-cat-arrow">→</span>
               </button>
             ))}

@@ -1,0 +1,137 @@
+/* ─── Products Page ──────────────────────────────────────────── */
+
+/* Filter bar wrapper */
+.pp-filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.pp-filter-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE/Edge */
+  scroll-snap-type: x mandatory;
+}
+.pp-filter-inner::-webkit-scrollbar { display: none; }
+
+/* Individual tab */
+.pp-filter-tab {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  padding: 7px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--text-h);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  font-family: var(--sans);
+}
+.pp-filter-tab:hover:not(.pp-filter-tab--active) {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+.pp-filter-tab--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+/* ── Section / Grid ── */
+.pp-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pp-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.pp-section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 0;
+}
+
+.pp-count {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Product grid */
+.pp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Loading / empty state */
+.pp-state-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 24px;
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Spinner */
+.pp-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: ppSpin 0.75s linear infinite;
+}
+@keyframes ppSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .pp-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .pp-section {
+    padding: 24px 16px 48px;
+  }
+  .pp-filter-inner {
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pp-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .pp-section-title {
+    font-size: 20px;
+  }
+}

@@ -20,11 +20,6 @@ export default function CheckoutPage() {
     saveAddress: false,
   })
 
-  /* payment */
-  const [payMethod, setPayMethod] = useState('')
-  const [cardForm, setCardForm] = useState({ number: '', name: '', expiry: '', cvv: '' })
-  const [upiId, setUpiId] = useState('')
-
   /* shipping */
   const [shippingId, setShippingId] = useState('standard')
   const shipping = SHIPPING_OPTIONS.find((o) => o.id === shippingId)
@@ -160,90 +155,6 @@ export default function CheckoutPage() {
             </div>
           </Section>
 
-          {/* ── Payment Method ── */}
-          <Section title="3. Payment Method">
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '16px' }}>
-              {[
-                { id: 'upi', icon: '📱', label: 'UPI' },
-                { id: 'card', icon: '💳', label: 'Card' },
-                { id: 'cod', icon: '💵', label: 'Cash on Delivery' },
-              ].map((opt) => (
-                <button
-                  key={opt.id}
-                  type="button"
-                  onClick={() => setPayMethod(opt.id)}
-                  style={{
-                    flex: '1 1 120px',
-                    padding: '12px 16px',
-                    border: `2px solid ${payMethod === opt.id ? 'var(--accent)' : 'var(--border)'}`,
-                    borderRadius: '8px',
-                    background: payMethod === opt.id ? 'var(--accent-bg)' : 'var(--card-bg)',
-                    cursor: 'pointer',
-                    fontWeight: '600',
-                    fontSize: '14px',
-                    color: 'var(--text-h)',
-                    transition: 'border-color 0.15s, background 0.15s',
-                  }}
-                >
-                  {opt.icon} {opt.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Card fields */}
-            {payMethod === 'card' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <Field label="Card Number">
-                  <input className="se-input" placeholder="1234 5678 9012 3456" maxLength={19}
-                    value={cardForm.number}
-                    onChange={(e) => setCardForm((p) => ({ ...p, number: e.target.value }))}
-                  />
-                </Field>
-                <Field label="Cardholder Name">
-                  <input className="se-input" placeholder="John Doe"
-                    value={cardForm.name}
-                    onChange={(e) => setCardForm((p) => ({ ...p, name: e.target.value }))}
-                  />
-                </Field>
-                <div style={twoColGrid}>
-                  <Field label="Expiry Date">
-                    <input className="se-input" placeholder="MM/YY" maxLength={5}
-                      value={cardForm.expiry}
-                      onChange={(e) => setCardForm((p) => ({ ...p, expiry: e.target.value }))}
-                    />
-                  </Field>
-                  <Field label="CVV">
-                    <input className="se-input" placeholder="•••" maxLength={4} type="password"
-                      value={cardForm.cvv}
-                      onChange={(e) => setCardForm((p) => ({ ...p, cvv: e.target.value }))}
-                    />
-                  </Field>
-                </div>
-                <p style={{ fontSize: '12px', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  🔒 Your card details are safe. This is a demo — no real transaction occurs.
-                </p>
-              </div>
-            )}
-
-            {/* UPI field */}
-            {payMethod === 'upi' && (
-              <Field label="UPI ID">
-                <input className="se-input" placeholder="yourname@upi"
-                  value={upiId}
-                  onChange={(e) => setUpiId(e.target.value)}
-                />
-              </Field>
-            )}
-
-            {payMethod === 'cod' && (
-              <div style={{
-                padding: '12px 16px', background: 'var(--surface)', border: '1px solid var(--border)',
-                borderRadius: '8px', fontSize: '14px', color: 'var(--muted)',
-              }}>
-                💵 Pay with cash at the time of delivery. No prepayment required.
-              </div>
-            )}
-          </Section>
         </div>
 
         {/* ══ RIGHT COLUMN – ORDER SUMMARY ══ */}
@@ -310,17 +221,14 @@ export default function CheckoutPage() {
             )}
           </Section>
 
-          {/* Pay Now */}
+          {/* Continue to Payment */}
           <button
             className="se-btn-primary"
             style={{ width: '100%', padding: '15px', fontSize: '16px', borderRadius: '10px', letterSpacing: '0.3px' }}
-            onClick={() => navigate('/products')}
+            onClick={() => navigate('/payment')}
           >
-            🔒 Pay Now
+            Continue to Payment →
           </button>
-          <p style={{ textAlign: 'center', fontSize: '12px', color: 'var(--muted)', marginTop: '-8px' }}>
-            This is a demo — no real payment is processed.
-          </p>
 
         </div>
       </div>

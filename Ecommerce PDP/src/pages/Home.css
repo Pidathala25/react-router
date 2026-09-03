@@ -222,7 +222,7 @@
 /* ─── 3. Categories ──────────────────────────────────────────── */
 .home-categories-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 14px;
 }
 
@@ -504,7 +504,7 @@
   .home-hero-title    { font-size: 42px; }
 
   .home-featured-grid   { grid-template-columns: repeat(2, 1fr); }
-  .home-categories-grid { grid-template-columns: repeat(3, 1fr); }
+  .home-categories-grid { grid-template-columns: repeat(5, 1fr); }
   .home-offers-grid     { grid-template-columns: repeat(2, 1fr); }
   .home-why-grid        { grid-template-columns: repeat(2, 1fr); }
   .home-reviews-grid    { grid-template-columns: repeat(2, 1fr); }
@@ -530,7 +530,8 @@
   .home-section-title { font-size: 22px; }
 
   .home-featured-grid   { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .home-categories-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-categories-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  /* 5 items → wraps cleanly into 3+2 on mobile */
   .home-offers-grid     { grid-template-columns: 1fr; }
   .home-why-grid        { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .home-reviews-grid    { grid-template-columns: 1fr; }
